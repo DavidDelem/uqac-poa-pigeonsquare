@@ -1,4 +1,16 @@
 package pigeonsquare;
 
-public class Chien {
+import pigeonsquare.utils.Position;
+
+public class Chien extends ElementMobile {
+
+    public Chien(Position position) {
+        this.position = position;
+        this.chargerImage("ressources/chien.png");
+    }
+
+    public Position determinerProchainePosition() {
+        return null;
+    }
+
 }

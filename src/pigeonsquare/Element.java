@@ -8,7 +8,7 @@ import pigeonsquare.utils.Position;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-public class Element extends Parent {
+public abstract class Element extends Parent implements Runnable {
 
     protected Position position;
     protected ImageView imageView;
@@ -24,18 +24,26 @@ public class Element extends Parent {
     public void chargerImage(String chemin){
         try {
             Image image = new Image(new FileInputStream(chemin));
-            this.imageView = new ImageView(image);
+            this.imageView = new ImageView();
+            this.imageView.setImage(image);
 
-            imageView.setX(this.position.x);
-            imageView.setY(this.position.y);
+            imageView.setX(this.position.x-image.getWidth()/2);
+            imageView.setY(this.position.y-image.getHeight()/2);
             imageView.setFitHeight(image.getHeight());
             imageView.setPreserveRatio(true);
 
-            System.out.println("TEST"); //TODO : afficher 2 fois ! L'image ne s'affiche pas
             this.getChildren().add(imageView);
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void run() {
+        while (true){
+
+        }
+    }
+
 }

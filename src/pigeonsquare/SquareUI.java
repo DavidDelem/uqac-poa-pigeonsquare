@@ -1,14 +1,11 @@
 package pigeonsquare;
 
 import javafx.application.Application;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import pigeonsquare.utils.Position;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +15,7 @@ public class SquareUI extends Application {
     private final int height = 650;
 
     private List<Element> elementList;
+    private Pane root;
 
     public SquareUI() {
 
@@ -28,26 +26,34 @@ public class SquareUI extends Application {
 
         this.elementList = new ArrayList<>();
 
-        StackPane root = new StackPane();
-        root.setId("pane");
-        Scene scene = new Scene(root, width, height);
+        this.root = new Pane();
+        this.root.setId("pane");
+        Scene scene = new Scene(this.root, width, height);
 
         scene.getStylesheets().addAll(this.getClass().getResource("style.css").toExternalForm());
 
         scene.setOnMouseClicked(me -> {
+            Position pos = new Position((int)me.getSceneX(), (int)me.getSceneY());
+            Element element = null;
+
             if (me.getButton() == MouseButton.PRIMARY) {
-                System.out.println("PRIMARY");
-                Element element = Square.getInstance().ajouterPigeonAleatoire(new Position((int)me.getSceneX(), (int)me.getSceneY()));
+                element = Square.getInstance().ajouterPigeonAleatoire(pos);
                 this.elementList.add(element);
 
             } else if  (me.getButton() == MouseButton.SECONDARY) {
-                System.out.println("SECONDARY");
+                element = Square.getInstance().ajouterNourriture(pos);
+                this.elementList.add(element);
+
             } else if  (me.getButton() == MouseButton.MIDDLE) {
-                System.out.println("MIDDLE");
+                element = Square.getInstance().ajouterChien(pos);
+                this.elementList.add(element);
             }
 
-            System.out.println("X: " + (me.getSceneX()));
-            System.out.println("Y: " + (me.getSceneY()));
+            if(element != null){
+                this.root.getChildren().add(element.getImageView());
+                Thread thread = new Thread(element);
+                thread.start();
+            }
 
         });
 

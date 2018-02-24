@@ -13,4 +13,8 @@ public class Chien extends ElementMobile {
         return null;
     }
 
+    public boolean surObjectif(){
+        return  false;
+    }
+
 }

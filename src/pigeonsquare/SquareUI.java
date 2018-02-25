@@ -3,6 +3,8 @@ package pigeonsquare;
 import javafx.application.Application;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -16,7 +18,6 @@ public class SquareUI extends Application {
     private final int width = 950;
     private final int height = 650;
 
-    private List<Element> elementList;
     private static Pane root = new Pane();
 
     public SquareUI() {
@@ -26,41 +27,42 @@ public class SquareUI extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-        this.elementList = new ArrayList<>();
-
         root.setId("pane");
         Scene scene = new Scene(root, width, height);
 
         scene.getStylesheets().addAll(this.getClass().getResource("style.css").toExternalForm());
 
-        scene.setOnMouseClicked(me -> {
-            Position pos = new Position((int)me.getSceneX(), (int)me.getSceneY());
+        scene.setOnMouseClicked(event -> {
+            Position pos = new Position((int)event.getSceneX(), (int)event.getSceneY());
             Element element = null;
 
-            if (me.getButton() == MouseButton.PRIMARY) {
+            if (event.getButton() == MouseButton.PRIMARY) {
 
                 if(Square.getInstance().getNbPigeon() < Square.nbPigeonMax){
                     element = Square.getInstance().ajouterPigeonAleatoire(pos);
-                    this.elementList.add(element);
-                    Thread thread = new Thread((Pigeon)element);
-                    thread.start();
                 }
 
-            } else if  (me.getButton() == MouseButton.SECONDARY) {
+            } else if  (event.getButton() == MouseButton.SECONDARY) {
                 if(Square.getInstance().getNbNourriture() < Square.nbNourritureMax) {
                     element = Square.getInstance().ajouterNourriture(pos);
-                    this.elementList.add(element);
                 }
 
-            } else if  (me.getButton() == MouseButton.MIDDLE) {
+            } else if  (event.getButton() == MouseButton.MIDDLE) {
                 if(Square.getInstance().getNbCaillou() < Square.nbCaillouMax) {
                     element = Square.getInstance().ajouterCaillou(pos);
-                    this.elementList.add(element);
                 }
             }
 
-            if(element != null) root.getChildren().add(element.getImageView());
+            if(element != null){
+                SquareUI.ajouterElementGraphique(element.getImageView());
+                Thread thread = new Thread(element);
+                thread.start();
+            }
 
+        });
+
+        scene.addEventFilter(KeyEvent.KEY_PRESSED, event ->{
+            if(event.getCode() == KeyCode.R) Square.getInstance().reinitialiser();
         });
 
         primaryStage.setTitle("PigeonSquare");
@@ -71,6 +73,10 @@ public class SquareUI extends Application {
 
     public static void supprimerElementGraphique(Node node){
         root.getChildren().remove(node);
+    }
+
+    public static void ajouterElementGraphique(Node node){
+        root.getChildren().add(node);
     }
 
     public static void main(String args[])

@@ -40,4 +40,8 @@ public class Position {
                 y == position.y;
     }
 
+    public boolean proche(Position position){
+        return Math.abs(this.x - position.x) < 10 && Math.abs(this.y - position.y) < 10;
+    }
+
 }

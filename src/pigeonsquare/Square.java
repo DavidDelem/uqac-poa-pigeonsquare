@@ -13,6 +13,8 @@ import java.util.Random;
 
 public class Square {
 
+    // TODO : locker les variable
+    // TODO : faire une fonction reset
     private List<Pigeon> pigeonList;
     private List<Nourriture> nourritureList;
     private List<Caillou> caillouList;
@@ -91,16 +93,38 @@ public class Square {
     public void supprimerNourriture(Nourriture nourriture){
 
         for(Pigeon pigeon : this.pigeonList){
-            if(pigeon.getElementObjectif() == nourriture){
-                pigeon.stop();
-                Platform.runLater(()->{
-                    SquareUI.supprimerElementGraphique(nourriture.getImageView());
-                });
-            }
+            if(pigeon.getElementObjectif() == nourriture) pigeon.stop();
         }
+
         this.nourritureList.remove(nourriture);
+        Platform.runLater(()->{
+            SquareUI.supprimerElementGraphique(nourriture.getImageView());
+        });
 
     }
+
+    public void supprimerCaillou(Caillou caillou){
+        this.caillouList.remove(caillou);
+        Platform.runLater(()->{
+            SquareUI.supprimerElementGraphique(caillou.getImageView());
+        });
+    }
+
+    public Caillou caillouProche(Pigeon pigeon, int distanceDangerMin){
+
+        Caillou caillouPlusProche = null;
+        double distance = 0.0f;
+
+        for(Caillou caillou : this.caillouList){
+            double distanceTmp = Position.distanceEntre(pigeon.getPosition(), caillou.getPosition());
+            if(distanceTmp <= distanceDangerMin && (distanceTmp < distance || distance == 0.0f)) {
+                distance = distanceTmp;
+                caillouPlusProche = caillou;
+            }
+        }
+        return caillouPlusProche;
+    }
+
 
     public int getNbPigeon(){
         return this.pigeonList.size();
@@ -112,5 +136,22 @@ public class Square {
 
     public int getNbCaillou(){
         return this.caillouList.size();
+    }
+
+    public void reinitialiser(){
+
+        List<Element> elementList = new ArrayList<>();
+        elementList.addAll(this.pigeonList);
+        elementList.addAll(this.caillouList);
+        elementList.addAll(this.nourritureList);
+
+        for(Element element : elementList){
+            SquareUI.supprimerElementGraphique(element.getImageView());
+            element.arreterThread();
+        }
+
+        this.pigeonList.clear();
+        this.caillouList.clear();
+        this.nourritureList.clear();
     }
 }

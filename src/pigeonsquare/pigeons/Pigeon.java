@@ -1,38 +1,60 @@
 package pigeonsquare.pigeons;
 
+import javafx.geometry.Pos;
 import pigeonsquare.*;
 import pigeonsquare.utils.Position;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Pigeon extends ElementMobile {
 
+    private static final int distanceDangerMin = 150;
+
     public Pigeon() {
     }
 
-    public void determinerObjectif() {
+    public Position calculerDirection() {
 
-        Nourriture nourriture = Square.getInstance().nourriturePlusProche(this);
-        //List<Chien> chiensList = Square.getInstance().chiensPlusProches(this, distangeDanger);
+        Position direction = null;
 
-        if(nourriture != null && nourriture != this.elementObjectif){
+        Nourriture nourritureProche = Square.getInstance().nourriturePlusProche(this);
+        Caillou caillouProche = Square.getInstance().caillouProche(this, this.distanceDangerMin);
 
-            this.elementObjectif = nourriture;
-            this.positionDepart = new Position(this.position.x, this.position.y);
-            this.distanceObjectif = Position.distanceEntre(this.position, nourriture.getPosition());
+        if(caillouProche != null){
 
-            Position direction = new Position(
-                    nourriture.getPosition().x-this.position.x,
-                    nourriture.getPosition().y-this.position.y
+            direction = new Position(
+                    caillouProche.getPosition().x-this.position.x,
+                    caillouProche.getPosition().y-this.position.y
+            );
+            direction.x *= -1;
+            direction.y *= -1;
+            direction.normalisation();
+            return direction;
+        }
+
+        if(nourritureProche != null && !this.position.proche(nourritureProche.getPosition())){
+
+            this.elementObjectif = nourritureProche;
+
+            direction = new Position(
+                    nourritureProche.getPosition().x-this.position.x,
+                    nourritureProche.getPosition().y-this.position.y
             );
             direction.normalisation();
-            this.directionObjectif = direction;
-
+            return direction;
         }
+
+        return null;
     }
 
     public void surObjectif(){
-        Square.getInstance().supprimerNourriture((Nourriture)elementObjectif);
+        Nourriture nourriture = (Nourriture)elementObjectif;
+
+        if(nourriture.getFrais()){
+            Square.getInstance().supprimerNourriture((Nourriture)elementObjectif);
+            nourriture.manger();
+        }
         stop();
     }
 

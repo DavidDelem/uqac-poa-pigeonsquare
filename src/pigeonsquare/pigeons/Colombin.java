@@ -11,7 +11,7 @@ public class Colombin extends Pigeon {
 
     public Colombin(Position position) {
         this.position = position;
-        this.vitessePixelSec = 350;
+        this.vitessePixelSec = 150;
         this.chargerImage("ressources/colombin.png");
     }
 

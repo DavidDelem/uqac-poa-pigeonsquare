@@ -9,18 +9,24 @@ import pigeonsquare.utils.Position;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-public abstract class Element extends Parent {
+public abstract class Element implements Runnable {
 
     protected Position position;
 
     protected ImageView imageView;
     protected double decalageLargeur;
     protected double decalageHauteur;
+    protected boolean arreterThread;
+
+    public Element(){
+        this.arreterThread = false;
+    }
+
+    public abstract void run();
 
     public Position getPosition() {
         return position;
     }
-
     public ImageView getImageView() {
         return imageView;
     }
@@ -38,11 +44,14 @@ public abstract class Element extends Parent {
             imageView.setFitHeight(image.getHeight());
             imageView.setPreserveRatio(true);
 
-            this.getChildren().add(imageView);
-
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
     }
+
+    public void arreterThread(){
+        this.arreterThread = true;
+    }
+
 
 }

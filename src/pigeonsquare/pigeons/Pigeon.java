@@ -1,39 +1,39 @@
 package pigeonsquare.pigeons;
 
-import pigeonsquare.Chien;
-import pigeonsquare.ElementMobile;
-import pigeonsquare.Nourriture;
-import pigeonsquare.Square;
+import pigeonsquare.*;
 import pigeonsquare.utils.Position;
 
 import java.util.List;
 
 public class Pigeon extends ElementMobile {
 
-    private int distangeDanger;
-    private Nourriture nourriture;
-
     public Pigeon() {
-        this.distangeDanger = 300;
-        nourriture = null;
     }
 
-    public Position determinerProchainePosition() {
+    public void determinerObjectif() {
 
         Nourriture nourriture = Square.getInstance().nourriturePlusProche(this);
         //List<Chien> chiensList = Square.getInstance().chiensPlusProches(this, distangeDanger);
 
-//        System.out.println("this.position.x = "+this.position.x+ "  ; this.position.y = " + this.position.y);
-//        if(nourriture != null) System.out.println("nourriture.getPosition().x = "+nourriture.getPosition().x+ "  ; nourriture.getPosition().y = " + nourriture.getPosition().y);
+        if(nourriture != null && nourriture != this.elementObjectif){
 
-        if(nourriture != null) return nourriture.getPosition();
-        else return this.position;
+            this.elementObjectif = nourriture;
+            this.positionDepart = new Position(this.position.x, this.position.y);
+            this.distanceObjectif = Position.distanceEntre(this.position, nourriture.getPosition());
+
+            Position direction = new Position(
+                    nourriture.getPosition().x-this.position.x,
+                    nourriture.getPosition().y-this.position.y
+            );
+            direction.normalisation();
+            this.directionObjectif = direction;
+
+        }
     }
 
-    @Override
-    public boolean surObjectif(){
-        if(nourriture != null && this.position.averageEquals(this.nourriture.getPosition())) return true;
-        return false;
+    public void surObjectif(){
+        Square.getInstance().supprimerNourriture((Nourriture)elementObjectif);
+        stop();
     }
 
 }

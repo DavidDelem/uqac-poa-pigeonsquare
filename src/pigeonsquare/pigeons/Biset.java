@@ -11,7 +11,7 @@ public class Biset extends Pigeon {
 
     public Biset(Position position) {
         this.position = position;
-        this.vitesse = 240;
+        this.vitessePixelSec = 240;
         this.chargerImage("ressources/biset.png");
     }
 

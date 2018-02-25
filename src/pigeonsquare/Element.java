@@ -1,5 +1,6 @@
 package pigeonsquare;
 
+import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -8,10 +9,13 @@ import pigeonsquare.utils.Position;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-public abstract class Element extends Parent implements Runnable {
+public abstract class Element extends Parent {
 
     protected Position position;
+
     protected ImageView imageView;
+    protected double decalageLargeur;
+    protected double decalageHauteur;
 
     public Position getPosition() {
         return position;
@@ -27,8 +31,10 @@ public abstract class Element extends Parent implements Runnable {
             this.imageView = new ImageView();
             this.imageView.setImage(image);
 
-            imageView.setX(this.position.x-image.getWidth()/2);
-            imageView.setY(this.position.y-image.getHeight()/2);
+            this.decalageLargeur = image.getWidth()/2.0;
+            this.decalageHauteur = image.getHeight()/2.0;
+            imageView.setX(this.position.x-this.decalageLargeur);
+            imageView.setY(this.position.y-this.decalageHauteur);
             imageView.setFitHeight(image.getHeight());
             imageView.setPreserveRatio(true);
 
@@ -36,13 +42,6 @@ public abstract class Element extends Parent implements Runnable {
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void run() {
-        while (true){
-
         }
     }
 

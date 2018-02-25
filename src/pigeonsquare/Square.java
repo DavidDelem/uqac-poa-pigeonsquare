@@ -1,5 +1,6 @@
 package pigeonsquare;
 
+import javafx.application.Platform;
 import pigeonsquare.pigeons.Biset;
 import pigeonsquare.pigeons.Colombin;
 import pigeonsquare.pigeons.Pigeon;
@@ -14,13 +15,16 @@ public class Square {
 
     private List<Pigeon> pigeonList;
     private List<Nourriture> nourritureList;
-    private List<Chien> chienList;
+    private List<Caillou> caillouList;
+
+    public static final int nbPigeonMax = 10;
+    public static final int nbNourritureMax = 3;
+    public static final int nbCaillouMax = 2;
 
     private Square() {
         this.pigeonList = new ArrayList<>();
         this.nourritureList = new ArrayList<>();
-        this.chienList = new ArrayList<>();
-        boucleJeu();
+        this.caillouList = new ArrayList<>();
     }
 
     /* Singleton */
@@ -31,8 +35,6 @@ public class Square {
         return square;
     }
 
-    public void boucleJeu(){
-    }
 
     public Element ajouterPigeonAleatoire(Position position) {
         Random random = new Random();
@@ -56,10 +58,10 @@ public class Square {
         }
     }
 
-    public Element ajouterChien(Position position) {
+    public Element ajouterCaillou(Position position) {
         Element element;
-        element = new Chien(position);
-        chienList.add((Chien)element);
+        element = new Caillou(position);
+        caillouList.add((Caillou) element);
         return element;
     }
 
@@ -76,7 +78,7 @@ public class Square {
         double distance = 0.0f;
 
         for(Nourriture nourriture : this.nourritureList){
-            double distanceTmp = Position.calculerDistance(pigeon.getPosition(), nourriture.getPosition());
+            double distanceTmp = Position.distanceEntre(pigeon.getPosition(), nourriture.getPosition());
             if(distance == 0.0f || distanceTmp < distance) {
                 distance = distanceTmp;
                 nourriturePlusProche = nourriture;
@@ -84,5 +86,31 @@ public class Square {
         }
 
         return nourriturePlusProche;
+    }
+
+    public void supprimerNourriture(Nourriture nourriture){
+
+        for(Pigeon pigeon : this.pigeonList){
+            if(pigeon.getElementObjectif() == nourriture){
+                pigeon.stop();
+                Platform.runLater(()->{
+                    SquareUI.supprimerElementGraphique(nourriture.getImageView());
+                });
+            }
+        }
+        this.nourritureList.remove(nourriture);
+
+    }
+
+    public int getNbPigeon(){
+        return this.pigeonList.size();
+    }
+
+    public int getNbNourriture(){
+        return this.nourritureList.size();
+    }
+
+    public int getNbCaillou(){
+        return this.caillouList.size();
     }
 }

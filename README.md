@@ -30,7 +30,7 @@
 - [x] Les pigeons se déplacent vers la nourriture la plus proche. Lorsqu'il n'y a pas de nourriture ils attendent.
 - [x] Si pendant son déplacement, une nourriture encore plus proche est ajouté, le pigeon change d'objectif.
 - [x] Seul le premier pigeon qui arrive à la nourriture la mange. Les autres pigeons s'arrêtent alors.
-- [x] La nourriture pourrie au bout d'un moment, les pigeons ne la mangent pas. Ensuite elle disparait.
+- [x] La nourriture pourrie au bout d'un moment, les pigeons y vont mais ne la mangent pas. Ensuite elle disparait.
 
 <p align="center">
 <img src="ressources/readme/nourriture.png" width="450"/>

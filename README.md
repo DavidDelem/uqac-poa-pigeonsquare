@@ -8,20 +8,42 @@
 
 <h4>Lancement</h4>
 
+Compiler et lancer le projet avec un IDE, ou en ligne de commande de la façon suivante:
+
+```
+cd src/pigeonsquare
+mkdir build
+cd build
+javac -d . ../*.java ../utils/*.java ../pigeons/*.java
+```
+
+Il est nécessaire d'importer dans build le CSS et les ressources (images):
+
+```
+cp -r ../../../ressources ./ressources
+cp -r ../style.css ./pigeonsquare
+```
+
+Pour finir, lancer le projet:
+
+```
+java pigeonsquare.SquareUI
+```
+
 ---
 
 <h4>Commandes</h4>
 
 **`Clic gauche`** Ajouter un pigeon (race aléatoire)<br/>
 **`Clic droit`** Ajouter des graines<br/>
-**`Clic du milieu`** Lancer une pierre<br/>
+**`Touche espace`** Lancer une pierre à une position aléatoire<br/>
 **`Touche R`** Remettre à zéro<br/>
 
 ---
 
 <h4>Ce qui a été réalisé</h4>
 
-- [x] Ajout d'un pigeon (10 max), de graines (3 max) ou d'une pierre (2 max) au clic de la souris.
+- [x] Ajout d'un pigeon (10 max) et de graines (3 max) au clic de la souris et de pierres (2 max) au clic sur la barre espace.
 - [x] Les 3 races de pigeons apparaissent aléatoirement. Chacune à une vitesse différente.
 <p align="center">
 <img src="ressources/readme/elems.png" width="450"/>

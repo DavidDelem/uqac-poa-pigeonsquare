@@ -28,9 +28,8 @@ public class SquareUI extends Application {
     public void start(Stage primaryStage) {
 
         root.setId("pane");
+        root.setStyle("-fx-background-color: #c8e1dd;");
         Scene scene = new Scene(root, width, height);
-
-        scene.getStylesheets().addAll(this.getClass().getResource("style.css").toExternalForm());
 
         scene.setOnMouseClicked(event -> {
             Position pos = new Position((int)event.getSceneX(), (int)event.getSceneY());

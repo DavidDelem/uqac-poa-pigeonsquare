@@ -22,8 +22,19 @@
 <h4>Ce qui a été réalisé</h4>
 
 - [x] Ajout d'un pigeon (10 max), de graines (2 max) ou d'une pierre (2 max) au clic de la souris.
+- [x] Les 3 races de pigeons apparaissent aléatoirement. Chacune à une vitesse différente.
+<p align="center">
+<img src="ressources/readme/elems.png" width="450"/>
+</p>
+
 - [x] Les pigeons se déplacent vers la nourriture la plus proche. Lorsqu'il n'y a pas de nourriture ils attendent.
-- [x] Si pendant son déplacement une nourriture plus proche de lui est ajouté, le pigeon change d'objectif.
-- [x] Il existe 3 races de pigeons qui apparaissent aléatoirement (gris, bleu, rose). Chacun à une vitesse différente.
+- [x] Si pendant son déplacement, une nourriture encore plus proche est ajouté, le pigeon change d'objectif.
 - [x] Seul le premier pigeon qui arrive à la nourriture la mange. Les autres pigeons s'arrêtent alors.
+- [x] La nourriture pourrie au bout d'un moment, les pigeons ne la mangent pas. Ensuite elle disparait.
+
+<p align="center">
+<img src="ressources/readme/nourriture.png" width="450"/>
+</p>
+
 - [x] Lorsque l'on lance une pierre, les pigeons autours prennent peur et s'éloignent à des positions aléatoires.
+- [x] La pierre disparaît au bout de quelques secondes.

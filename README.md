@@ -21,7 +21,6 @@ Il est nécessaire d'importer dans build le CSS et les ressources (images):
 
 ```
 cp -r ../../../ressources ./ressources
-cp -r ../style.css ./pigeonsquare
 ```
 
 Pour finir, lancer le projet:

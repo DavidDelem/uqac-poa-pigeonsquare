@@ -12,6 +12,7 @@ import pigeonsquare.pigeons.Pigeon;
 import pigeonsquare.utils.Position;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class SquareUI extends Application {
 
@@ -47,10 +48,6 @@ public class SquareUI extends Application {
                     element = Square.getInstance().ajouterNourriture(pos);
                 }
 
-            } else if  (event.getButton() == MouseButton.MIDDLE) {
-                if(Square.getInstance().getNbCaillou() < Square.nbCaillouMax) {
-                    element = Square.getInstance().ajouterCaillou(pos);
-                }
             }
 
             if(element != null){
@@ -63,6 +60,16 @@ public class SquareUI extends Application {
 
         scene.addEventFilter(KeyEvent.KEY_PRESSED, event ->{
             if(event.getCode() == KeyCode.R) Square.getInstance().reinitialiser();
+
+            if(event.getCode() == KeyCode.SPACE && Square.getInstance().getNbCaillou() < Square.nbCaillouMax){
+                Random r = new Random();
+                Position pos = new Position(r.nextInt(this.width),  r.nextInt(this.height));
+                Element element = Square.getInstance().ajouterCaillou(pos);
+
+                SquareUI.ajouterElementGraphique(element.getImageView());
+                Thread thread = new Thread(element);
+                thread.start();
+            }
         });
 
         primaryStage.setTitle("PigeonSquare");

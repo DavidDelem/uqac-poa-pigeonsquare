@@ -36,7 +36,7 @@ public class Nourriture extends Element {
             if(!this.arreterThread && !this.manger){
                 Platform.runLater(() -> {
                     SquareUI.supprimerElementGraphique(this.imageView);
-                    chargerImage("ressources/chien.png"); // TODO : changer texture nourriture pas fraiche
+                    chargerImage("ressources/nourriture-pourrie.png");
                     SquareUI.ajouterElementGraphique(this.imageView);
                 });
 

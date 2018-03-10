@@ -10,17 +10,18 @@
 
 Compiler et lancer le projet avec un IDE, ou en ligne de commande de la façon suivante:
 
+À la racine du projet, au même niveau que src:
+
 ```
-cd src/pigeonsquare
 mkdir build
 cd build
-javac -d . ../*.java ../utils/*.java ../pigeons/*.java
+javac -d . ../src/pigeonsquare/*.java ../src/pigeonsquare/utils/*.java ../src/pigeonsquare/pigeons/*.java
 ```
 
 Il est nécessaire d'importer dans build le CSS et les ressources (images):
 
 ```
-cp -r ../../../ressources ./ressources
+cp -r ../ressources ./ressources
 ```
 
 Pour finir, lancer le projet:

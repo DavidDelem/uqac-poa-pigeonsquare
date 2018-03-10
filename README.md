@@ -36,14 +36,14 @@ java pigeonsquare.SquareUI
 
 **`Clic gauche`** Ajouter un pigeon (race aléatoire)<br/>
 **`Clic droit`** Ajouter des graines<br/>
-**`Touche espace`** Lancer une pierre à une position aléatoire<br/>
+**`Barre espace`** Lancer une pierre à une position aléatoire<br/>
 **`Touche R`** Remettre à zéro<br/>
 
 ---
 
 <h4>Ce qui a été réalisé</h4>
 
-- [x] Ajout d'un pigeon (10 max) et de graines (3 max) au clic de la souris et de pierres (2 max) au clic sur la barre espace.
+- [x] Ajout de pigeon (10 max) et graines (3 max) au clic de la souris, de pierres (2 max) en appuyant sur espace.
 - [x] Les 3 races de pigeons apparaissent aléatoirement. Chacune à une vitesse différente.
 <p align="center">
 <img src="ressources/readme/elems.png" width="450"/>

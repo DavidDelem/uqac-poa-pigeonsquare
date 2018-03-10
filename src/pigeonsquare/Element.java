@@ -1,7 +1,6 @@
 package pigeonsquare;
 
-import javafx.application.Platform;
-import javafx.scene.Parent;
+
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import pigeonsquare.utils.Position;
@@ -9,6 +8,10 @@ import pigeonsquare.utils.Position;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
+/**
+ * Classe abstraite Element
+ *
+ */
 public abstract class Element implements Runnable {
 
     protected Position position;
@@ -18,6 +21,10 @@ public abstract class Element implements Runnable {
     protected double decalageHauteur;
     protected boolean arreterThread;
 
+    /**
+     * Initialise un élément
+     *
+     */
     public Element(){
         this.arreterThread = false;
     }
@@ -31,6 +38,11 @@ public abstract class Element implements Runnable {
         return imageView;
     }
 
+    /**
+     * Charger une image pour un élément
+     *
+     * @param chemin d'accès de l'image à charger
+     */
     public void chargerImage(String chemin){
         try {
             Image image = new Image(new FileInputStream(chemin));
@@ -49,6 +61,10 @@ public abstract class Element implements Runnable {
         }
     }
 
+    /**
+     * Activer la condition d'arrêt du thread de l'élément
+     *
+     */
     public void arreterThread(){
         this.arreterThread = true;
     }

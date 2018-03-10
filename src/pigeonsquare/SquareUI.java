@@ -8,23 +8,26 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import pigeonsquare.pigeons.Pigeon;
 import pigeonsquare.utils.Position;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
+/**
+ * Classe SquareUI : fenêtre graphique
+ *
+ */
 public class SquareUI extends Application {
 
-    private final int width = 950;
-    private final int height = 650;
+    private final int width = Params.width;
+    private final int height = Params.height;
 
     private static Pane root = new Pane();
 
-    public SquareUI() {
 
-    }
-
+    /**
+     * Démarre l'application JavaFX
+     *
+     * @param primaryStage conteneur de la scène
+     */
     @Override
     public void start(Stage primaryStage) {
 
@@ -37,12 +40,13 @@ public class SquareUI extends Application {
             Position pos = new Position((int)event.getSceneX(), (int)event.getSceneY());
             Element element = null;
 
+            //Ajout d'un nouveau pigeon (aléatoire parmi les 3 races de pigeon) à la position de la souris
             if (event.getButton() == MouseButton.PRIMARY) {
 
                 if(Square.getInstance().getNbPigeon() < Square.nbPigeonMax){
                     element = Square.getInstance().ajouterPigeonAleatoire(pos);
                 }
-
+            //Ajout d'une nouvelle nourriture à la position de la souris
             } else if  (event.getButton() == MouseButton.SECONDARY) {
                 if(Square.getInstance().getNbNourriture() < Square.nbNourritureMax) {
                     element = Square.getInstance().ajouterNourriture(pos);
@@ -59,8 +63,10 @@ public class SquareUI extends Application {
         });
 
         scene.addEventFilter(KeyEvent.KEY_PRESSED, event ->{
+            //Réinitialiser le jeu
             if(event.getCode() == KeyCode.R) Square.getInstance().reinitialiser();
 
+            //Lancer un caillou à une position aléatoire lorsque la barre espace est utilisée
             if(event.getCode() == KeyCode.SPACE && Square.getInstance().getNbCaillou() < Square.nbCaillouMax){
                 Random r = new Random();
                 Position pos = new Position(r.nextInt(this.width),  r.nextInt(this.height));
@@ -78,14 +84,29 @@ public class SquareUI extends Application {
 
     }
 
+    /**
+     * Supprimer un élément graphique de la fenêtre
+     *
+     * @param node noeud graphique à supprimer dans l'objet Pane "root"
+     */
     public static void supprimerElementGraphique(Node node){
         root.getChildren().remove(node);
     }
 
+    /**
+     * Ajouter un élément graphique à la fenêtre
+     *
+     * @param node noeud graphique à ajouter dans l'objet Pane "root"
+     */
     public static void ajouterElementGraphique(Node node){
         root.getChildren().add(node);
     }
 
+    /**
+     * Fonction de lancement du programme
+     *
+     * @param args paramètres passés au programme
+     */
     public static void main(String args[])
     {
         launch(args);

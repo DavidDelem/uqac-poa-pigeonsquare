@@ -1,19 +1,21 @@
 package pigeonsquare.pigeons;
 
-import javafx.geometry.Pos;
 import pigeonsquare.*;
 import pigeonsquare.utils.Position;
 
-import java.util.ArrayList;
-import java.util.List;
-
+/**
+ * Classe Pigeon
+ *
+ */
 public class Pigeon extends ElementMobile {
 
-    private static final int distanceDangerMin = 150;
+    private static final int distanceDangerMin = Params.distanceDangerMin;
 
-    public Pigeon() {
-    }
-
+    /**
+     * Définir une direction suivant un objectif à déterminer
+     *
+     * @return la direction calculée
+     */
     public Position calculerDirection() {
 
         Position direction = null;
@@ -48,13 +50,14 @@ public class Pigeon extends ElementMobile {
         return null;
     }
 
+    /**
+     * Actions à réaliser lorsque le pigeon est sur son objectif
+     *
+     */
     public void surObjectif(){
         Nourriture nourriture = (Nourriture)elementObjectif;
 
-        if(nourriture.getFrais()){
-            //Square.getInstance().supprimerNourriture((Nourriture)elementObjectif);
-            nourriture.manger();
-        }
+        if(nourriture.getFrais()) nourriture.manger();
         stop();
     }
 

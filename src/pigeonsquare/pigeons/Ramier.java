@@ -1,18 +1,19 @@
 package pigeonsquare.pigeons;
 
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+
+import pigeonsquare.Params;
 import pigeonsquare.utils.Position;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-
+/**
+ * Classe Ramier
+ *
+ */
 public class Ramier extends Pigeon {
 
     public Ramier(Position position) {
         this.position = position;
-        this.vitessePixelSec = 400;
-        this.chargerImage("ressources/ramier.png");
+        this.vitessePixelSec = Params.vitesseRamier;
+        this.chargerImage(Params.cheminRamier);
     }
 
 }

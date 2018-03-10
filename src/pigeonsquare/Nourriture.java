@@ -1,46 +1,57 @@
 package pigeonsquare;
 
 import javafx.application.Platform;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import pigeonsquare.utils.Position;
-import sun.net.www.content.text.PlainTextInputStream;
+import java.util.concurrent.locks.ReentrantLock;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-
+/**
+ * Classe Nourriture
+ *
+ */
 public class Nourriture extends Element {
 
     private boolean frais;
     private boolean manger;
+    private ReentrantLock lock;
 
+    /**
+     * Initialise une nourriture
+     *
+     * @param position de la nourriture
+     */
     public Nourriture(Position position) {
         this.position = position;
         this.frais = true;
         this.manger = false;
-        this.chargerImage("ressources/nourriture.png");
+        this.chargerImage(Params.cheminNourriture);
+        this.lock = new ReentrantLock();
     }
 
     public boolean getFrais(){
         return this.frais;
     }
 
+    /**
+     * Méthode d'exécution du thread nourriture
+     *
+     */
     @Override
     public void run() {
 
         try {
-            Thread.sleep(4000);
-
+            //Nourriture fraîche pendant un certain temps
+            Thread.sleep(Params.nourritureSleep);
             this.frais = false;
 
+            //Si on n'a pas arrêté le thread et que la nourriture n'a pas été mangée
             if(!this.arreterThread && !this.manger){
                 Platform.runLater(() -> {
                     SquareUI.supprimerElementGraphique(this.imageView);
-                    chargerImage("ressources/nourriture-pourrie.png");
+                    chargerImage(Params.cheminNourriturePourrie);
                     SquareUI.ajouterElementGraphique(this.imageView);
                 });
 
-                Thread.sleep(4000);
+                Thread.sleep(Params.nourritureSleep);
                 Square.getInstance().supprimerNourriture(this);
             }
 
@@ -49,7 +60,15 @@ public class Nourriture extends Element {
         }
     }
 
+    /**
+     * Lorsqu'une nourriture est mangée
+     *
+     */
     public void manger(){
+
         this.manger = true;
+        if(this.lock.tryLock()) Square.getInstance().supprimerNourriture(this);
     }
+
+
 }

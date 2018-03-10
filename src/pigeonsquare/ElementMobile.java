@@ -4,6 +4,10 @@ package pigeonsquare;
 import javafx.application.Platform;
 import pigeonsquare.utils.Position;
 
+/**
+ * Classe ElementMobile
+ *
+ */
 public abstract class ElementMobile extends Element {
 
     protected double vitessePixelSec;
@@ -12,9 +16,13 @@ public abstract class ElementMobile extends Element {
     protected Position direction;
     private boolean sedeplacer;
 
+    /**
+     * Initialise un élément mobile
+     *
+     */
     public ElementMobile() {
-        this.vitessePixelSec = 250;
-        this.sleepMilli = 33;
+        this.vitessePixelSec = Params.vitesseParDefaut;
+        this.sleepMilli = Params.sleepMilli;
         this.elementObjectif = null;
         this.direction = new Position();
         this.sedeplacer = false;
@@ -27,6 +35,10 @@ public abstract class ElementMobile extends Element {
         return this.elementObjectif;
     }
 
+    /**
+     * Déplacement d'un élément mobile
+     *
+     */
     public void seDeplacer(){
 
         this.position.x += this.direction.x * (vitessePixelSec/1000.0) * sleepMilli;
@@ -42,10 +54,18 @@ public abstract class ElementMobile extends Element {
         }
     }
 
+    /**
+     * Arrêter le déplacement d'un élément mobile
+     *
+     */
     public void stop(){
         this.elementObjectif = null;
     }
 
+    /**
+     * Méthode d'exécution du thread d'un élément mobile
+     *
+     */
     @Override
     public void run() {
 

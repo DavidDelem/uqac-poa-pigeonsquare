@@ -1,18 +1,18 @@
 package pigeonsquare.pigeons;
 
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import pigeonsquare.Params;
 import pigeonsquare.utils.Position;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-
+/**
+ * Classe Biset
+ *
+ */
 public class Biset extends Pigeon {
 
     public Biset(Position position) {
         this.position = position;
-        this.vitessePixelSec = 200;
-        this.chargerImage("ressources/biset.png");
+        this.vitessePixelSec = Params.vitesseBiset;
+        this.chargerImage(Params.cheminBiset);
     }
 
 }

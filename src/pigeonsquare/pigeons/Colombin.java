@@ -1,18 +1,18 @@
 package pigeonsquare.pigeons;
 
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import pigeonsquare.Params;
 import pigeonsquare.utils.Position;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-
+/**
+ * Classe Colombin
+ *
+ */
 public class Colombin extends Pigeon {
 
     public Colombin(Position position) {
         this.position = position;
-        this.vitessePixelSec = 150;
-        this.chargerImage("ressources/colombin.png");
+        this.vitessePixelSec = Params.vitesseColombin;
+        this.chargerImage(Params.cheminColombin);
     }
 
 }

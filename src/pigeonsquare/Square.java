@@ -11,26 +11,31 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Classe Square : contrôleur du Pigeon Square
+ *
+ */
 public class Square {
 
-    // TODO : locker les variable
-    // TODO : faire une fonction reset
     private List<Pigeon> pigeonList;
     private List<Nourriture> nourritureList;
     private List<Caillou> caillouList;
 
-    public static final int nbPigeonMax = 10;
-    public static final int nbNourritureMax = 3;
-    public static final int nbCaillouMax = 2;
+    public static final int nbPigeonMax = Params.nbPigeonMax;
+    public static final int nbNourritureMax = Params.nbNourritureMax;
+    public static final int nbCaillouMax = Params.nbCaillouMax;
 
+    /**
+     * Initialise le Square (Singleton !)
+     *
+     */
     private Square() {
         this.pigeonList = new ArrayList<>();
         this.nourritureList = new ArrayList<>();
         this.caillouList = new ArrayList<>();
     }
 
-    /* Singleton */
-
+    //Singleton
     private static Square square = new Square();
     public static Square getInstance()
     {
@@ -38,6 +43,12 @@ public class Square {
     }
 
 
+    /**
+     * Ajouter un pigeon aléatoirement parmi 3 races à une position donnée
+     *
+     * @param position position à laquelle le nouveau pigeon est positionné
+     * @return le nouveau pigeon
+     */
     public Element ajouterPigeonAleatoire(Position position) {
         Random random = new Random();
         Element element;
@@ -60,6 +71,12 @@ public class Square {
         }
     }
 
+    /**
+     * Ajouter un caillou à une position donnée
+     *
+     * @param position position à laquelle le nouveau caillou est positionné
+     * @return le nouveau caillou
+     */
     public Element ajouterCaillou(Position position) {
         Element element;
         element = new Caillou(position);
@@ -67,6 +84,12 @@ public class Square {
         return element;
     }
 
+    /**
+     * Ajouter une nourriture à une position donnée
+     *
+     * @param position position à laquelle la nourriture est positionnée
+     * @return la nouvelle nourriture
+     */
     public Element ajouterNourriture(Position position) {
         Element element;
         element = new Nourriture(position);
@@ -74,6 +97,12 @@ public class Square {
         return element;
     }
 
+    /**
+     * Pour un pigeon donné, permet de connaître la nourriture la plus proche
+     *
+     * @param pigeon pour lequel il faut faire la recherche
+     * @return la nourriture la plus proche (à condition qu'il en existe)
+     */
     public Nourriture nourriturePlusProche(Pigeon pigeon){
 
         Nourriture nourriturePlusProche = null;
@@ -90,7 +119,12 @@ public class Square {
         return nourriturePlusProche;
     }
 
-    public void supprimerNourriture(Nourriture nourriture){
+    /**
+     * Supprimer une nourriture
+     *
+     * @param nourriture a supprimer
+     */
+    public synchronized void supprimerNourriture(Nourriture nourriture){
 
         for(Pigeon pigeon : this.pigeonList){
             if(pigeon.getElementObjectif() == nourriture) pigeon.stop();
@@ -103,13 +137,25 @@ public class Square {
 
     }
 
-    public void supprimerCaillou(Caillou caillou){
+    /**
+     * Supprimer un caillou
+     *
+     * @param caillou a supprimer
+     */
+    public synchronized void supprimerCaillou(Caillou caillou){
         this.caillouList.remove(caillou);
         Platform.runLater(()->{
             SquareUI.supprimerElementGraphique(caillou.getImageView());
         });
     }
 
+    /**
+     * Pour un pigeon donné et une zone de danger donnée, permet de connaître le caillou le plus proche
+     *
+     * @param pigeon pour lequel il faut faire la recherche
+     * @param distanceDangerMin distance pour laquelle un caillou est compris dans la zone de danger
+     * @return le caillou le plus proche dans la zone de donnée
+     */
     public Caillou caillouProche(Pigeon pigeon, int distanceDangerMin){
 
         Caillou caillouPlusProche = null;
@@ -138,6 +184,10 @@ public class Square {
         return this.caillouList.size();
     }
 
+    /**
+     * Reinitialiser l'environnement
+     *
+     */
     public void reinitialiser(){
 
         List<Element> elementList = new ArrayList<>();

@@ -90,7 +90,7 @@ public class Square {
         return nourriturePlusProche;
     }
 
-    public void supprimerNourriture(Nourriture nourriture){
+    public synchronized void supprimerNourriture(Nourriture nourriture){
 
         for(Pigeon pigeon : this.pigeonList){
             if(pigeon.getElementObjectif() == nourriture) pigeon.stop();
@@ -103,7 +103,7 @@ public class Square {
 
     }
 
-    public void supprimerCaillou(Caillou caillou){
+    public synchronized void supprimerCaillou(Caillou caillou){
         this.caillouList.remove(caillou);
         Platform.runLater(()->{
             SquareUI.supprimerElementGraphique(caillou.getImageView());

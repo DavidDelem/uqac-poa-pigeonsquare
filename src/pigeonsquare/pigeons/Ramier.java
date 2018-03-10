@@ -11,7 +11,7 @@ public class Ramier extends Pigeon {
 
     public Ramier(Position position) {
         this.position = position;
-        this.vitessePixelSec = 400;
+        this.vitessePixelSec = 280;
         this.chargerImage("ressources/ramier.png");
     }
 

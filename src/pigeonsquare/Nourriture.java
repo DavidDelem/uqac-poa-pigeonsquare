@@ -1,24 +1,21 @@
 package pigeonsquare;
 
 import javafx.application.Platform;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import pigeonsquare.utils.Position;
-import sun.net.www.content.text.PlainTextInputStream;
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Nourriture extends Element {
 
     private boolean frais;
     private boolean manger;
+    private ReentrantLock lock;
 
     public Nourriture(Position position) {
         this.position = position;
         this.frais = true;
         this.manger = false;
         this.chargerImage("ressources/nourriture.png");
+        this.lock = new ReentrantLock();
     }
 
     public boolean getFrais(){
@@ -36,7 +33,7 @@ public class Nourriture extends Element {
             if(!this.arreterThread && !this.manger){
                 Platform.runLater(() -> {
                     SquareUI.supprimerElementGraphique(this.imageView);
-                    chargerImage("ressources/chien.png"); // TODO : changer texture nourriture pas fraiche
+                    chargerImage("ressources/nourriture2.png"); // TODO : changer texture nourriture pas fraiche
                     SquareUI.ajouterElementGraphique(this.imageView);
                 });
 
@@ -50,6 +47,10 @@ public class Nourriture extends Element {
     }
 
     public void manger(){
+
         this.manger = true;
+        if(this.lock.tryLock()) Square.getInstance().supprimerNourriture(this);
     }
+
+
 }

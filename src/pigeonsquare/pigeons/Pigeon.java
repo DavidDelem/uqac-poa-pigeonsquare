@@ -52,7 +52,7 @@ public class Pigeon extends ElementMobile {
         Nourriture nourriture = (Nourriture)elementObjectif;
 
         if(nourriture.getFrais()){
-            Square.getInstance().supprimerNourriture((Nourriture)elementObjectif);
+            //Square.getInstance().supprimerNourriture((Nourriture)elementObjectif);
             nourriture.manger();
         }
         stop();

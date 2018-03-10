@@ -21,7 +21,7 @@
 
 <h4>Ce qui a été réalisé</h4>
 
-- [x] Ajout d'un pigeon (10 max), de graines (2 max) ou d'une pierre (2 max) au clic de la souris.
+- [x] Ajout d'un pigeon (10 max), de graines (3 max) ou d'une pierre (2 max) au clic de la souris.
 - [x] Les 3 races de pigeons apparaissent aléatoirement. Chacune à une vitesse différente.
 <p align="center">
 <img src="ressources/readme/elems.png" width="450"/>

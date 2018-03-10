@@ -18,7 +18,7 @@ cd build
 javac -d . ../src/pigeonsquare/*.java ../src/pigeonsquare/utils/*.java ../src/pigeonsquare/pigeons/*.java
 ```
 
-Il est nécessaire d'importer dans build le CSS et les ressources (images):
+Il est nécessaire d'importer les ressources (images) dans build:
 
 ```
 cp -r ../ressources ./ressources

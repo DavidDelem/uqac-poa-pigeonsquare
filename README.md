@@ -46,7 +46,7 @@ java pigeonsquare.SquareUI
 - [x] Ajout de pigeon (10 max) et graines (3 max) au clic de la souris, de pierres (2 max) en appuyant sur espace.
 - [x] Les 3 races de pigeons apparaissent aléatoirement. Chacune à une vitesse différente.
 <p align="center">
-<img src="ressources/readme/elems.png" width="450"/>
+  <img src="ressources/readme/elems.png" width="450"/>
 </p>
 
 - [x] Les pigeons se déplacent vers la nourriture la plus proche. Lorsqu'il n'y a pas de nourriture ils attendent.
@@ -55,8 +55,19 @@ java pigeonsquare.SquareUI
 - [x] La nourriture pourrie au bout d'un moment, les pigeons y vont mais ne la mangent pas. Ensuite elle disparaît.
 
 <p align="center">
-<img src="ressources/readme/nourriture.png" width="450"/>
+  <img src="ressources/readme/nourriture.png" width="450"/>
 </p>
 
 - [x] Lorsqu'on lance une pierre, les pigeons autours prennent peur et s'éloignent à des positions aléatoires.
 - [x] La pierre disparaît au bout de quelques secondes.
+
+---
+
+<h4>Gifs du résultat</h4>
+<p align="center">
+  <img src="ressources/readme/gif1.gif"/>
+  <br><br><br><br>
+  <img src="ressources/readme/gif2.gif"/> 
+  <br><br><br><br>
+  <img src="ressources/readme/gif3.gif"/>
+</p>

@@ -10,7 +10,7 @@
 
 Compiler et lancer le projet avec un IDE, ou en ligne de commande de la façon suivante:
 
-À la racine du projet, au même niveau que src:
+Pour lancer ces commandes, se placer à la racine du projet (au même niveau que "src" et "ressources"):
 
 ```
 mkdir build

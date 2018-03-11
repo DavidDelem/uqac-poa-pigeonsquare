@@ -68,7 +68,7 @@ public class SquareUI extends Application {
             //Lancer un caillou à une position aléatoire lorsque la barre espace est utilisée
             if(event.getCode() == KeyCode.SPACE && Square.getInstance().getNbCaillou() < Square.nbCaillouMax){
                 Random r = new Random();
-                Position pos = new Position(r.nextInt(this.width),  r.nextInt(this.height));
+                Position pos = new Position(r.nextInt(this.width - 150) + 150,  r.nextInt(this.height - 150) + 150);
                 Element element = Square.getInstance().ajouterCaillou(pos);
 
                 SquareUI.ajouterElementGraphique(element.getImageView());
